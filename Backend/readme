@@ -1,0 +1,152 @@
+
+# 📰 API de Publication d'Articles
+
+Cette API permet aux utilisateurs de s’inscrire, se connecter, publier et gérer des articles.
+
+## 🔐 Authentification (/api/auth)
+
+### ✅ POST /register
+Inscription d’un utilisateur.
+
+**Body JSON :**
+```json
+{
+  "name": "Nom",
+  "email": "email@mail.com",
+  "password": "motdepasse"
+}
+```
+
+**Réponse :**
+```json
+{
+  "message": "Utilisateur inscrit avec succès"
+}
+```
+
+### 📌 POST /login
+Connexion de l’utilisateur.
+
+**Body JSON :**
+```json
+{
+  "email": "email@mail.com",
+  "password": "motdepasse"
+}
+```
+
+**Réponse :**
+```json
+{
+  "message": "Connexion réussie",
+  "token": "JWT_TOKEN",
+  "user": {
+    "_id": "...",
+    "name": "Nom"
+  }
+}
+```
+
+## 📝 Articles (/api/articles)
+
+> Toutes les routes nécessitent un token JWT (`Authorization: Bearer TON_TOKEN`) sauf mention contraire.
+
+### ✅ POST /publish
+Publier un article.
+
+**Body JSON :**
+```json
+{
+  "title": "Titre",
+  "description": "Contenu",
+  "tags": "tag1,tag2",
+  "image": "url_image",
+  "authorId": "id_utilisateur",
+  "authorName": "Nom",
+  "authorDescription": "Bio"
+}
+```
+
+### ⚙️ PUT /update
+Modifier un article (par son auteur).
+
+**Body JSON :**
+```json
+{
+  "articleId": "id_article",
+  "title": "Nouveau titre",
+  "description": "Nouveau contenu",
+  "tags": "tag1,tag2",
+  "image": "nouvelle_image_url",
+  "authorId": "id_utilisateur"
+}
+```
+
+### ❌ DELETE /delete
+Supprimer un article (par son auteur).
+
+**Body JSON :**
+```json
+{
+  "articleId": "id_article",
+  "authorId": "id_utilisateur"
+}
+```
+
+### 📈 PUT /update-stats
+Mettre à jour les vues et les likes d’un article.
+
+**Body JSON :**
+```json
+{
+  "articleId": "id_article",
+  "incrementViews": 1,
+  "incrementLikes": 1
+}
+```
+
+### ⚠️ POST /report
+Signaler un article.
+
+**Body JSON :**
+```json
+{
+  "articleId": "id_article",
+  "userId": "id_utilisateur"
+}
+```
+
+### 👤 GET /user-articles
+Obtenir les articles de l’utilisateur connecté.
+
+**Header :**
+```
+Authorization: Bearer TON_TOKEN
+```
+
+### 🏷️ GET /tags-info
+Obtenir les tags disponibles et leurs statistiques.
+
+**Réponse :**
+```json
+{
+  "tags": {
+    "javascript": {
+      "count": 2,
+      "articles": [
+        {
+          "id": "...",
+          "title": "...",
+          "description": "...",
+          "authorName": "...",
+          "createdAt": "..."
+        }
+      ]
+    }
+  }
+}
+```
+
+## 📬 Contact
+
+Pour toute question ou suggestion, contacte-moi à **Rodhackgangdev@gmail.com**.

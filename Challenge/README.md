@@ -1,0 +1,1 @@
+userToken = Pour stocker le token JWT lors de la connexion
